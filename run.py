@@ -24,9 +24,6 @@ def ssh_multiple_connections(hosts_info, command):
             hostnames.append(hostname)
             #添加保活任务
             stdin1, stdout1, stderr1 = ssh.exec_command(vmess_ilive)
-            print(stdin1.read().decode())
-            print(stdout1.read().decode())
-            print(stderr1.read().decode())
             ssh.close()
         except Exception as e:
             print(f"用户：{username}，连接 {hostname} 时出错: {str(e)}")
