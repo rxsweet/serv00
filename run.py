@@ -6,6 +6,7 @@ from datetime import datetime, timezone, timedelta
 
 #自己添加的任务命令
 vmess_ilive = '(crontab -l; echo "*/12 * * * * pgrep -x "web" > /dev/null || nohup /home/${USER}/.vmess/web run -c /home/${USER}/.vmess/config.json >/dev/null 2>&1 &") | crontab -'
+del_cron = 'crontab -r'
 
 def ssh_multiple_connections(hosts_info, command):
     users = []
@@ -23,7 +24,12 @@ def ssh_multiple_connections(hosts_info, command):
             users.append(user)
             hostnames.append(hostname)
             #添加保活任务
-            stdin1, stdout1, stderr1 = ssh.exec_command(vmess_ilive)
+            #https://blog.csdn.net/weixin_42366275/article/details/111628923
+            ssh.exec_command(del_cron)
+            ssh.exec_command(vmess_ilive)
+            print('\n 输入的信息：' + stdin.readlines())
+            print('\n 输出的信息：' + stdout.readlines())
+            print('\n 错误的信息：' + stderr.readlines())
             ssh.close()
         except Exception as e:
             print(f"用户：{username}，连接 {hostname} 时出错: {str(e)}")
