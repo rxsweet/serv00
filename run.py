@@ -19,17 +19,18 @@ def ssh_multiple_connections(hosts_info, command):
             ssh = paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             ssh.connect(hostname=hostname, port=22, username=username, password=password)
-            stdin, stdout, stderr = ssh.exec_command(command)
-            user = stdout.read().decode().strip()
-            users.append(user)
-            hostnames.append(hostname)
-            #添加保活任务
+            #登录后添加自己保活任务
             #https://blog.csdn.net/weixin_42366275/article/details/111628923
             ssh.exec_command(del_cron)
             ssh.exec_command(vmess_ilive)
             print('\n 输入的信息：' + stdin.readlines())
             print('\n 输出的信息：' + stdout.readlines())
             print('\n 错误的信息：' + stderr.readlines())
+            
+            stdin, stdout, stderr = ssh.exec_command(command)
+            user = stdout.read().decode().strip()
+            users.append(user)
+            hostnames.append(hostname)
             ssh.close()
         except Exception as e:
             print(f"错误提示：   用户：{username}，连接 {hostname} 时出错: {str(e)}")
