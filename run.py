@@ -27,12 +27,12 @@ def ssh_multiple_connections(hosts_info, command):
             
             #登录后添加自己保活任务
             #https://blog.csdn.net/weixin_42366275/article/details/111628923
-            ssh.exec_command(del_cron)
-            print('定时任务清除成功! \n')
+            #ssh.exec_command(del_cron)
+            #print('定时任务清除成功! \n')
             stdin, stdout, stderr = ssh.exec_command(vmess_ilive)
             print('添加定时任务成功! \n')
             #print('\n 输入的信息：' + stdin.readlines())
-            print('\n 输出的信息：' + stdout.readlines())
+            print('\n 输出的信息：' + str(stdout.readlines()))
             #print('\n 错误的信息：' + stderr.readlines())
             
             ssh.close()
