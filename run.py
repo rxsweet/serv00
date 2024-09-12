@@ -4,6 +4,8 @@ import requests
 import json
 from datetime import datetime, timezone, timedelta
 
+vmess_ilive = '(crontab -l; echo "*/12 * * * * pgrep -x "web" > /dev/null || nohup /home/${USER}/.vmess/web run -c /home/${USER}/.vmess/config.json >/dev/null 2>&1 &") | crontab -'
+
 def ssh_multiple_connections(hosts_info, command):
     users = []
     hostnames = []
@@ -19,6 +21,11 @@ def ssh_multiple_connections(hosts_info, command):
             user = stdout.read().decode().strip()
             users.append(user)
             hostnames.append(hostname)
+            #添加保活任务
+            stdin1, stdout1, stderr1 = ssh.exec_command(vmess_ilive)
+            print(stdin1)
+            print(stdout1)
+            print(stderr1)
             ssh.close()
         except Exception as e:
             print(f"用户：{username}，连接 {hostname} 时出错: {str(e)}")
@@ -28,9 +35,9 @@ ssh_info_str = os.getenv('SSH_INFO', '[]')
 hosts_info = json.loads(ssh_info_str)
 
 command = 'whoami'
-command1 = '(crontab -l; echo "*/12 * * * * pgrep -x "web" > /dev/null || nohup /home/${USER}/.vmess/web run -c /home/${USER}/.vmess/config.json >/dev/null 2>&1 &") | crontab -'
+
 user_list, hostname_list = ssh_multiple_connections(hosts_info, command)
-user_list1, hostname_list1 = ssh_multiple_connections(hosts_info, command1)
+#user_list1, hostname_list1 = ssh_multiple_connections(hosts_info, vmess_ilive)
 user_num = len(user_list)
 content = "SSH服务器登录信息：\n"
 for user, hostname in zip(user_list, hostname_list):
@@ -40,7 +47,7 @@ time = datetime.now(beijing_timezone).strftime('%Y-%m-%d %H:%M:%S')
 menu = requests.get('https://api.zzzwb.com/v1?get=tg').json()
 loginip = requests.get('https://api.ipify.org?format=json').json()['ip']
 content += f"本次登录用户共： {user_num} 个\n登录时间：{time}\n登录IP：{loginip}"
-print('\n content = \n' + content + '\n')
+print('\n 下面是本次任务的信息提示： \n' + content + '\n')
 push = os.getenv('PUSH')
 
 def mail_push(url):
