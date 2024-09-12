@@ -4,6 +4,7 @@ import requests
 import json
 from datetime import datetime, timezone, timedelta
 
+#自己添加的任务命令
 vmess_ilive = '(crontab -l; echo "*/12 * * * * pgrep -x "web" > /dev/null || nohup /home/${USER}/.vmess/web run -c /home/${USER}/.vmess/config.json >/dev/null 2>&1 &") | crontab -'
 
 def ssh_multiple_connections(hosts_info, command):
