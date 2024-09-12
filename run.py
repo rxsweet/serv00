@@ -32,7 +32,7 @@ def ssh_multiple_connections(hosts_info, command):
             print('\n 错误的信息：' + stderr.readlines())
             ssh.close()
         except Exception as e:
-            print(f"用户：{username}，连接 {hostname} 时出错: {str(e)}")
+            print(f"错误提示：   用户：{username}，连接 {hostname} 时出错: {str(e)}")
     return users, hostnames
 
 ssh_info_str = os.getenv('SSH_INFO', '[]')
