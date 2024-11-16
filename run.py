@@ -54,10 +54,13 @@ menu = requests.get('https://api.zzzwb.com/v1?get=tg').json()
 loginip = requests.get('https://api.ipify.org?format=json').json()['ip']
 content += f"本次登录用户共： {user_num} 个\n登录时间：{time}\n登录IP：{loginip}"
 print('\n 下面是本次任务的信息提示： \n' + content + '\n')
-#写入日志
-file = open("./log.txt", "a")
-file.write(str(datetime.now()) + ' : ' + 'SSH登录成功！\n')
-file.close()
+
+nowtime = datetime.now()
+if nowtime.day%20 == 0:#每月更新一次
+    #写入日志
+    file = open("./log.txt", "a")
+    file.write(str(datetime.now()) + ' : ' + 'SSH登录成功！\n')
+    file.close()
 push = os.getenv('PUSH')
 
 def mail_push(url):
