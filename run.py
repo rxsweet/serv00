@@ -56,7 +56,7 @@ content += f"本次登录用户共： {user_num} 个\n登录时间：{time}\n登
 print('\n 下面是本次任务的信息提示： \n' + content + '\n')
 #写入日志
 file = open("./log.txt", "a")
-file.write(str(datetime.now()) + ' : ' + 'SSH登录成功！')
+file.write(str(datetime.now()) + ' : ' + 'SSH登录成功！\n')
 file.close()
 push = os.getenv('PUSH')
 
