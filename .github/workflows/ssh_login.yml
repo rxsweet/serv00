@@ -39,7 +39,7 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git add ./log.txt
+          git add ./
           git commit -m "$(date '+%Y-%m-%d %H:%M:%S') update ssh done"
           git pull --rebase
       - name: 推送更改
