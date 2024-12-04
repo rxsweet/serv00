@@ -8,18 +8,18 @@ on:
 jobs:
   ssh-login:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
+      - name: 迁出代码
+        uses: actions/checkout@v4
+      - name: 安装Python
+        uses: actions/setup-python@v5
         with:
-          ref: ${{ github.ref }}
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-          
+          python-version: '3.10' 
+      - name: 设置时区
+        run: sudo timedatectl set-timezone 'Asia/Shanghai'     
+
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install paramiko requests
       
       - name: Run Python script
@@ -38,7 +38,7 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git pull origin main
-          git add .
+          git add ./
           git commit -m "$(date '+%Y-%m-%d %H:%M:%S') update ssh done"
       - name: 推送更改
         uses:  ad-m/github-push-action@master
