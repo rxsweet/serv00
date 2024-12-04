@@ -34,12 +34,14 @@ jobs:
         run: python run.py
  
       - name: Commit
+        id: commit
+        continue-on-error: true
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git pull origin main
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
           git add ./
           git commit -m "$(date '+%Y-%m-%d %H:%M:%S') update ssh done"
+          git pull --rebase
       - name: 推送更改
         uses:  ad-m/github-push-action@master
         with:
