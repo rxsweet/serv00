@@ -22,9 +22,9 @@ https://github.com/eooce/Sing-box
 
 # 使用到的命令
 
-显示进程PID: ps aux
-关闭进程(PID): kill PID
-关闭进程(进程名w): pkill -f w
+ - 显示进程PID: ps aux
+ - 关闭进程(PID): kill PID
+ - 关闭进程(进程名w): pkill -f w
 
 pgrep -x w > /dev/null || nohup /home/rx/.rxv1/w run -c /home/rx/.rxv1/c.json >/dev/null 2>&1 &
 ```
