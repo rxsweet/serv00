@@ -8,6 +8,10 @@ from datetime import datetime, timezone, timedelta
 vmess_ilive = '(crontab -l; echo "*/12 * * * * pgrep -x "w" > /dev/null || nohup /home/${USER}/.rxv1/w run -c /home/${USER}/.rxv1/c.json >/dev/null 2>&1 &") | crontab -'
 del_cron = 'crontab -r'
 
+kill_w = 'pkill -f w'
+run_w = 'pgrep -x w > /dev/null || nohup /home/rx/.rxv1/w run -c /home/rx/.rxv1/c.json >/dev/null 2>&1 &'
+
+
 def ssh_multiple_connections(hosts_info, command):
     users = []
     hostnames = []
@@ -25,6 +29,11 @@ def ssh_multiple_connections(hosts_info, command):
             hostnames.append(hostname)
             print('\n已登录成功了! \n')
             
+            #因为过一段时间节点就连不上，需要关掉重新打开
+            ssh.exec_command(kill_w)
+            print('关闭w进程! \n')
+            ssh.exec_command(run_w)
+            print('重新打开w进程! \n')
             #登录后添加自己保活任务
             #https://blog.csdn.net/weixin_42366275/article/details/111628923
             ssh.exec_command(del_cron)
