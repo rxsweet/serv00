@@ -1,8 +1,10 @@
+#由于节点不能用了，只使用一周登录一次的保活
 name: SSH Login
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 每天 北京时间 8 点运行
+    #- cron: '0 0 * * *'  # 每天 北京时间 8 点运行
+    - cron: '0 0 * * 0'  #每周一次
   workflow_dispatch:
 
 jobs:
