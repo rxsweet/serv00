@@ -1,0 +1,46 @@
+{
+    "code": 200,
+    "data": {
+        "init": {
+            "status": true,
+            "openDevTools": true,
+            "sources": {
+                "kg": {
+                    "actions": ["musicUrl"],
+                    "name": "kg",
+                    "qualitys": ["128k", "320k", "flac", "flac24bit"],
+                    "type": "music"
+                },
+                "kw": {
+                    "actions": ["musicUrl"],
+                    "name": "kw",
+                    "qualitys": ["128k", "320k", "flac", "flac24bit"],
+                    "type": "music"
+                },
+                "mg": {
+                    "actions": ["musicUrl"],
+                    "name": "mg",
+                    "qualitys": ["128k", "320k", "flac", "flac24bit"],
+                    "type": "music"
+                },
+                "tx": {
+                    "actions": ["musicUrl"],
+                    "name": "tx",
+                    "qualitys": ["128k", "320k", "flac", "flac24bit"],
+                    "type": "music"
+                },
+                "wy": {
+                    "actions": ["musicUrl"],
+                    "name": "wy",
+                    "qualitys": ["128k", "320k", "flac", "flac24bit", "master"],
+                    "type": "music"
+                }
+            }
+        },
+        "update": {
+            "log": "",
+            "updateUrl": "",
+            "version": 3
+        }
+    }
+}
